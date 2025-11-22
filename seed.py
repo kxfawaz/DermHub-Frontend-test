@@ -38,3 +38,10 @@ with app.app_context():
     db.session.commit()
 
     print("✅ Seed completed successfully!")
+def run_seed():
+    # whatever you currently do in seed.py
+    # example:
+    db.drop_all()
+    db.create_all()
+    # insert questions, admin, etc.
+    db.session.commit()

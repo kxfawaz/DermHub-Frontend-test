@@ -12,6 +12,10 @@ from flask_cors import CORS
 from functools import wraps
 from flask import abort
 
+from dotenv import load_dotenv
+load_dotenv()
+
+
 app = Flask(__name__)
 CORS(app, supports_credentials=True, origins=["http://localhost:5173", "http://127.0.0.1:5173"])
 
@@ -403,3 +407,8 @@ def delete_followup(id):
 
     return jsonify({"deleted": id})
 
+@app.route('/run-seed')
+def run_seed_route():
+    from seed import run_seed
+    run_seed()
+    return "✅ SEED COMPLETE"

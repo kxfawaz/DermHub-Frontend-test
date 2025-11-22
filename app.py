@@ -67,14 +67,19 @@ app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 toolbar = DebugToolbarExtension(app)
 
 connect_db(app)
+bcrypt.init_app(app)
 
+migrate = Migrate(app, db)  # ✅ must come before upgrade
+
+# ✅ TEMPORARY — run migrations ONCE
 with app.app_context():
     from flask_migrate import upgrade
-    upgrade()  
+    try:
+        upgrade()
+        print("✅ Migration applied")
+    except Exception as e:
+        print(f"⚠️ Skipping migration: {e}")
 
-
-bcrypt.init_app(app)  # Enable password hashing
-migrate = Migrate(app, db)  # Enable flask db migrate commands
 
 
 # ------------------------

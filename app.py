@@ -113,20 +113,16 @@ def do_logout():
     flash("You have been logged out!")
 
 
-## Admin config for dermhub-admin 
-def admin_required(f):
-    @wraps(f)
-    def wrapper(*args, **kwargs):
-        if not g.user or not g.user.is_admin:
-            abort(403)  # Forbidden
-        return f(*args, **kwargs)
-    return wrapper
-
 
 
 # ------------------------
 # AUTH ROUTES
 # ------------------------
+
+
+@app.route("/", methods=["GET"])
+def homepage():
+    return render_template("login.html")
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():

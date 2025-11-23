@@ -134,7 +134,7 @@ def do_logout():
 
 @app.route("/", methods=["GET"])
 def homepage():
-    return render_template("login.html")
+    return redirect(url_for("signup"))
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
